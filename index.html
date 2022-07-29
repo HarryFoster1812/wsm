@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Super secure chat room</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+<body>
+        <div id="wrapper">
+            <div id="menu">
+                <p class="welcome">Welcome, to the super secure 100% encrypted chat room<b></b></p>
+                <p class="logout"><a id="exit" href="#">Exit Chat</a></p>
+            </div>
+ 
+            <div id="chatbox"></div>
+ 
+            <form name="message" action="">
+                <input name="usermsg" type="text" id="usermsg" />
+                <input name="submitmsg" type="submit" id="submitmsg" value="Send" />
+            </form>
+        </div>
+
+    <script>
+        let socket = new WebSocket("ws://192.168.1.80:8765");
+
+// send message from the form
+document.forms.message.onsubmit = function() {
+  let outgoingMessage = this.usermsg.value;
+  this.usermsg.value = "";
+
+  socket.send(outgoingMessage);
+  return false;
+};
+
+// message received - show the message in div#chatbox
+socket.onmessage = function(event) {
+  let message = event.data;
+
+  let messageElem = document.createElement('div');
+  messageElem.textContent = message;
+  document.getElementById('chatbox').append(messageElem);
+}
+
+    </script>
+  </body>
+</html>
