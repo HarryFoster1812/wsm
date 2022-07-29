@@ -1,5 +1,5 @@
 # wsm
-This
+This was forked from akioweh who i have worked with to produce this so shoutout to him.
 
 A simple webmessaging sit that uses html and css as the front end which allows users to send send and see recived chats
 
